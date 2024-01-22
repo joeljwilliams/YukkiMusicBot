@@ -30,12 +30,11 @@ RESTART_COMMAND = get_command("RESTART_COMMAND")
 async def reload_admin_cache(client, message: Message, _):
     try:
         chat_id = message.chat.id
-        admins = await app.get_chat_members(
-            chat_id, filter=enums.ChatMembersFilter.ADMINISTRATORS
-        )
         authusers = await get_authuser_names(chat_id)
         adminlist[chat_id] = []
-        for chatmember in admins:
+        async for chatmember in app.get_chat_members(
+            chat_id, filter=enums.ChatMembersFilter.ADMINISTRATORS
+        ):
             if chatmember.privileges.can_manage_video_chats:
                 adminlist[chat_id].append(chatmember.user.id)
         for user in authusers:

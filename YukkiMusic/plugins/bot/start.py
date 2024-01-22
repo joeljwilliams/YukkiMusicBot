@@ -10,6 +10,7 @@
 import asyncio
 
 from pyrogram import filters
+from pyrogram import enums
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from youtubesearchpython.__future__ import VideosSearch
 
@@ -51,7 +52,7 @@ async def start_comm(client, message: Message, _):
         if name[0:4] == "song":
             return await message.reply_text(_["song_2"])
         if name[0:3] == "sta":
-            m = await message.reply_text("🔎 Fetching your personal stats.!)
+            m = await message.reply_text("🔎 Fetching your personal stats.!")
             stats = await get_userss(message.from_user.id)
             tot = len(stats)
             if not stats:
@@ -151,8 +152,8 @@ async def start_comm(client, message: Message, _):
             key = InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton(text="🎥 Watch ", url=f"{link}),
-                        InlineKeyboardButton(text="🔄 Close", callback_data="close),
+                        InlineKeyboardButton(text="🎥 Watch ", url=f"{link}"),
+                        InlineKeyboardButton(text="🔄 Close", callback_data="close"),
                     ],
                 ]
             )
@@ -235,8 +236,7 @@ async def welcome(client, message: Message):
             language = await get_lang(message.chat.id)
             _ = get_string(language)
             if member.id == app.id:
-                chat_type = message.chat.type
-                if chat_type != "supergroup":
+                if message.chat.type != enums.ChatType.SUPERGROUP:
                     await message.reply_text(_["start_6"])
                     return await app.leave_chat(message.chat.id)
                 if chat_id in await blacklisted_chats():

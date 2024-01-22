@@ -6,5 +6,6 @@ Yukkilogs.txt
 raw_files/
 cache/
 downloads/
+venv/
 __pycache__/
 *.session-journal

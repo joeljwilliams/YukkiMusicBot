@@ -8,6 +8,7 @@
 # All rights reserved.
 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram import enums
 
 from config import adminlist
 from strings import get_string
